@@ -1,8 +1,9 @@
 package cofh.core.network;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class PacketTile extends PacketCoFHBase {
 
@@ -32,11 +33,12 @@ public class PacketTile extends PacketCoFHBase {
 	public void handlePacket(EntityPlayer player, boolean isServer) {
 
 		BlockPos pos = new BlockPos(getInt(), getInt(), getInt());
+        IBlockState state = player.worldObj.getBlockState(pos);
 		TileEntity tile = player.worldObj.getTileEntity(pos);
 
 		if (tile instanceof ITilePacketHandler) {
 			((ITilePacketHandler) tile).handleTilePacket(this, isServer);
-			tile.getWorld().markBlockForUpdate(pos);
+			tile.getWorld().notifyBlockUpdate(pos, state, state, 3);
 			if (isServer) {
 				tile.getWorld().updateComparatorOutputLevel(pos, tile.getBlockType());
 			}

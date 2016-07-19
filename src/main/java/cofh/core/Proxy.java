@@ -1,9 +1,6 @@
 package cofh.core;
 
 import cofh.core.chat.PacketIndexedChat;
-import cofh.core.key.KeyBindingMultiMode;
-import cofh.core.key.KeyHandler;
-import cofh.core.key.PacketKey;
 import cofh.core.network.PacketHandler;
 import cofh.core.network.PacketSocial;
 import cofh.core.network.PacketTile;
@@ -14,7 +11,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -43,21 +40,21 @@ public class Proxy {
 	/* REGISTRATION */
 	public void registerKeyBinds() {
 
-		KeyHandler.addServerKeyBind(KeyBindingMultiMode.instance);
+		//KeyHandler.addServerKeyBind(KeyBindingMultiMode.instance);
 		// KeyHandler.addServerKeyBind(KeyBindingAugments.instance);
 	}
 
 	public void registerPacketInformation() {
 
 		PacketIndexedChat.initialize();
-		PacketKey.initialize();
+		//PacketKey.initialize();
 		PacketTile.initialize();
 		PacketSocial.initialize();
 		PacketTileInfo.initialize();
 	}
 
 	/* HELPERS */
-	public void addIndexedChatMessage(IChatComponent chat, int index) {
+	public void addIndexedChatMessage(ITextComponent chat, int index) {
 
 	}
 
@@ -71,7 +68,7 @@ public class Proxy {
 
 		MinecraftServer theServer = FMLCommonHandler.instance().getMinecraftServerInstance();
 		playerName = playerName.trim();
-		for (String a : theServer.getConfigurationManager().getOppedPlayerNames()) {
+		for (String a : theServer.getPlayerList().getOppedPlayerNames()) {
 			if (playerName.equalsIgnoreCase(a)) {
 				return true; // TODO: This is awful but likely no way to improve. Thanks Mojang.
 			}

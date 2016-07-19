@@ -1,7 +1,5 @@
 package cofh.core;
 
-import cofh.core.key.KeyBindingMultiMode;
-import cofh.core.key.KeyHandler;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.Locale;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -30,7 +28,7 @@ public class ProxyClient extends Proxy {
 
 		super.registerKeyBinds();
 
-		KeyHandler.addKeyBind(KeyBindingMultiMode.instance);
+		//KeyHandler.addKeyBind(KeyBindingMultiMode.instance);
 		// KeyHandler.addKeyBind(KeyBindingAugments.instance);
 
 		ClientRegistry.registerKeyBinding(KEYBINDING_MULTIMODE);
@@ -39,7 +37,7 @@ public class ProxyClient extends Proxy {
 
 	/* HELPERS */
 	@Override
-	public void addIndexedChatMessage(IChatComponent chat, int index) {
+	public void addIndexedChatMessage(ITextComponent chat, int index) {
 
 		if (chat == null) {
 			Minecraft.getMinecraft().ingameGUI.getChatGUI().deleteChatLine(index);
